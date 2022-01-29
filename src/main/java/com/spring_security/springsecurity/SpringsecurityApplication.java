@@ -76,11 +76,11 @@ public class SpringsecurityApplication implements CommandLineRunner {
 				.addedby("admin")
 				.addedbyLevel("ADMIN").build();
 
-		productRepository.save(product1);
-		productRepository.save(product2);
-		productRepository.save(product3);
-		productRepository.save(product4);
-		productRepository.save(product5);
+//		productRepository.save(product1);
+//		productRepository.save(product2);
+//		productRepository.save(product3);
+//		productRepository.save(product4);
+//		productRepository.save(product5);
 
         // User Creation... by Default 3 user created for three roles [User],[EMPLOYEE] and [ADMIN]...
 
@@ -92,53 +92,65 @@ public class SpringsecurityApplication implements CommandLineRunner {
 
 
         User user1 = User.builder()
-                             .username("user1")
-                             .password("user1")
-							 .email("user1@gmail.com")
-							 .age(21)
-							 .role(role_user)
-							 .isEnabled(true)
-                             .build();
+				.username("user1")
+				.password("user1")
+				.email("user1@gmail.com")
+				.age(21)
+				.role(role_user)
+				.isEnabled(true).build();
 
-        User emp1 = User.builder()
+		ArrayList<Product> productsSet = new ArrayList<>();
+		productsSet.add(product1);
+		productsSet.add(product2);
+
+		User emp1 = User.builder()
                             .username("emp1")
                             .password("emp1")
 							.email("emp1@gmail.com")
 							.age(23)
                             .role(role_emp)
-							.isEnabled(true)
+							.isEnabled(true).likedProducts(productsSet)
                             .build();
 
 		User emp2 = User.builder()
 				.username("emp2")
 				.password("emp2")
-							.email("emp2@gmail.com")
-							.age(23)
-							.role(role_emp)
-							.isEnabled(false)
-							.build();
+				.email("emp2@gmail.com")
+				.age(23)
+				.role(role_emp)
+				.isEnabled(false).build();
+
 		User emp3 = User.builder()
 				.username("emp3")
 				.password("emp3")
 				.email("emp3@gmail.com")
 				.age(25)
 				.role(role_emp)
-				.isEnabled(true)
-				.build();
+				.isEnabled(true).build();
 
         User admin = User.builder()
-                             .username("admin")
-                             .password("admin")
-                             .role(role_admin)
-							 .email("admin@gmail.com")
-							 .isEnabled(true)
-                             .build();
+				.username("admin")
+				.password("admin")
+				.role(role_admin)
+				.email("admin@gmail.com")
+				.isEnabled(true).build();
 
-        userService.userCreation(user1);
-        userService.userCreation(emp1);
+		productRepository.saveAll(Arrays.asList(product1,product2,product3,product4,product5));
+		userService.userCreation(user1);
+		userService.userCreation(emp1);
 		userService.userCreation(emp2);
 		userService.userCreation(emp3);
-        userService.userCreation(admin);
+		userService.userCreation(admin);
+
+
+//		LikedProduct likedProduct1 = new LikedProduct();
+//		likedProduct1.setUsername("emp1");
+//		likedProduct1.setLikedProductId(3);
+//		likedProductRepository.save(likedProduct1);
+//		LikedProduct likedProduct2 = new LikedProduct();
+//		likedProduct2.setUsername("emp1");
+//		likedProduct2.setLikedProductId(4);
+//		likedProductRepository.save(likedProduct2);
 
 
 	}

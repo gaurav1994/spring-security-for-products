@@ -2,15 +2,14 @@ package com.spring_security.springsecurity.service;
 
 import com.spring_security.springsecurity.entity.AuthUserDetails;
 import com.spring_security.springsecurity.entity.Product;
+import com.spring_security.springsecurity.entity.User;
 import com.spring_security.springsecurity.exception.ProductNotFoundException;
 import com.spring_security.springsecurity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,6 +18,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -62,6 +64,10 @@ public class ProductServiceImpl implements ProductService{
             productList = getAllProducts();
         }else{
             productList = productRepository.findByAddedby(empName).stream().collect(Collectors.toList());
+
+            User userByUsername = userService.getUserByUsername(empName);
+
+            List<Product> likedProducts = userByUsername.getLikedProducts();
         }
         return productList;
     }

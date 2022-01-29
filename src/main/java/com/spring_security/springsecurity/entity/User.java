@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,5 +30,10 @@ public class User {
     private Role role;
 
     private boolean isEnabled = true;
+
+    @ManyToMany
+    @JoinTable(name = "liked_products_tbl",
+    joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> likedProducts;
 
 }

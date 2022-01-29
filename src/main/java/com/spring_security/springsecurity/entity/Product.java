@@ -24,4 +24,10 @@ public class Product {
     private String addedby;
     private String addedbyLevel;
 
+//    @ManyToOne
+//    @JoinColumn(name = "likedProductByUserId")
+//    private User userLiked;
+
+    @Transient
+    private boolean isLiked;
 }
